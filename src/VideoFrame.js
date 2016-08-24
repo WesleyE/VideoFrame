@@ -73,7 +73,7 @@ class VideoFrame {
   * @param {frameCallback} callback - The callback that handles the response.
   */
   registerCallback(callback) {
-    return this.callbacks.push(callback);
+    return this.callbacks.push(callback) - 1;
   }
 
   /**
@@ -162,34 +162,31 @@ class VideoFrame {
   * @param  {Number} frames - The current time in the video
   * @return {String} Returns the time code in the video
   */
-  toTime(frames) {
+  toTime(frames = null) {
     let time = frames;
     if (typeof frames !== 'number') {
       time = this.video.currentTime;
     }
     const frameRate = this.frameRate;
 
+    console.log("time", time);
+
     const dt = new Date();
-
-    let format = 'hh:mm:ss';
-    if (typeof frames === 'number') {
-      format = `${format}:ff`;
-    }
-
     dt.setHours(0);
     dt.setMinutes(0);
     dt.setSeconds(0);
     dt.setMilliseconds(time * 1000);
 
-    return format.replace(/hh|mm|ss|ff/g, () => {
-      switch (format) {
-        case 'hh': return VideoFrame.pad(dt.getHours() < 13 ? dt.getHours() : (dt.getHours() - 12));
-        case 'mm': return VideoFrame.pad(dt.getMinutes());
-        case 'ss': return VideoFrame.pad(dt.getSeconds());
-        case 'ff': return VideoFrame.pad(Math.floor(((time % 1) * frameRate)));
-        default: return '';
-      }
-    });
+    const hh = VideoFrame.pad(dt.getHours() < 13 ? dt.getHours() : (dt.getHours() - 12));
+    const mm = VideoFrame.pad(dt.getMinutes());
+    const ss = VideoFrame.pad(dt.getSeconds());
+
+    if (typeof frames === 'number') {
+      const ff = VideoFrame.pad(Math.floor(((time % 1) * frameRate)));
+      return `${hh}:${mm}:${ss}:${ff}`
+    } else {
+      return `${hh}:${mm}:${ss}`
+    }
   }
 
   /**
@@ -213,10 +210,12 @@ class VideoFrame {
   * or standard time code in HH:MM:SS format.
   * @return {Number} Returns the Millisecond count of a SMPTE Time code
   */
-  toMilliseconds(SMPTE) {
-    let frames = Number(this.toSMPTE().split(':')[3]);
-    if (!SMPTE) {
+  toMilliseconds(SMPTE = null) {
+    let frames = 0;
+    if (SMPTE !== null) {
       frames = Number(SMPTE.split(':')[3]);
+    } else {
+      frames = Number(this.toSMPTE().split(':')[3])
     }
 
     const milliseconds = (1000 / this.frameRate) * (isNaN(frames) ? 0 : frames);
@@ -238,4 +237,4 @@ class VideoFrame {
 
 }
 
-module.exports = VideoFrame;
+export default VideoFrame;
