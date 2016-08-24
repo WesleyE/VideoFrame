@@ -140,7 +140,7 @@ class VideoFrame {
 
     const hour = ((fps * 60) * 60);
     const minute = (fps * 60);
-    const hours = (frameNumber / hour).toFixed(0);
+    const hours = Math.floor(frameNumber / hour).toFixed(0);
     const minutes = (Number((frameNumber / minute).toString().split('.')[0]) % 60);
     const seconds = (Number((frameNumber / fps).toString().split('.')[0]) % 60);
 
