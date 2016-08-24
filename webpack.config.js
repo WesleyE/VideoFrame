@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var fs = require("fs");
 
 module.exports = {
   entry: './src/VideoFrame.js',
@@ -12,7 +13,8 @@ module.exports = {
       compress: {
         warnings: false
       }
-    })
+    }),
+    new webpack.BannerPlugin(fs.readFileSync('./LICENSE.md', 'utf8')),
   ],
   module: {
     preLoaders: [
