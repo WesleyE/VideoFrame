@@ -3,6 +3,7 @@
 
 # VideoFrame
 > HTML5 Video - SMPTE Time Code capturing and Frame Seeking API - Version: 0.3
+> [![Coverage Status](https://coveralls.io/repos/github/WesleyE/VideoFrame/badge.svg?branch=master)](https://coveralls.io/github/WesleyE/VideoFrame?branch=master)
 <br><br><br><br>
 
 ## Contributors

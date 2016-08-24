@@ -23,6 +23,10 @@ describe('VideoFrame', () => {
        videoFrame.toSeconds('00:00:01:00').should.equal(1);
      });
 
+     it('should return 3600 when SMPTE is 01:00:00:00', () => {
+       videoFrame.toSeconds('01:00:00:00').should.equal(3600);
+     });
+
   });
 
 });
