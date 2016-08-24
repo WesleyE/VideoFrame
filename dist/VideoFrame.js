@@ -23,8 +23,17 @@
  * SOFTWARE.
  * 
  */
-var VideoFrame =
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define("VideoFrame", [], factory);
+	else if(typeof exports === 'object')
+		exports["VideoFrame"] = factory();
+	else
+		root["VideoFrame"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -132,7 +141,14 @@ var VideoFrame =
 	    _classCallCheck(this, VideoFrame);
 
 	    this.frameRate = frameRate;
-	    this.videoElement = window.document.getElementById(videoElementId);
+
+	    // Make sure window is defined (it is not in tests)
+	    if (typeof window !== 'undefined') {
+	      this.videoElement = window.document.getElementById(videoElementId);
+	    } else {
+	      this.videoElement = null;
+	    }
+
 	    this.callbacks = [];
 	  }
 
@@ -380,4 +396,6 @@ var VideoFrame =
 	module.exports = VideoFrame;
 
 /***/ }
-/******/ ]);
+/******/ ])
+});
+;

@@ -6,14 +6,17 @@ module.exports = {
   entry: './src/VideoFrame.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'VideoFrame.js',
+    library: 'VideoFrame',
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
+    /*new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
       }
-    }),
+    }),*/
     new webpack.BannerPlugin(fs.readFileSync('./LICENSE.md', 'utf8')),
   ],
   module: {

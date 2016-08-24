@@ -49,7 +49,14 @@ class VideoFrame {
   */
   constructor(frameRate = FrameRates.PAL, videoElementId = null) {
     this.frameRate = frameRate;
-    this.videoElement = window.document.getElementById(videoElementId);
+
+    // Make sure window is defined (it is not in tests)
+    if (typeof window !== 'undefined') {
+      this.videoElement = window.document.getElementById(videoElementId);
+    } else {
+      this.videoElement = null;
+    }
+
     this.callbacks = [];
   }
 
@@ -231,4 +238,4 @@ class VideoFrame {
 
 }
 
-export default VideoFrame;
+module.exports = VideoFrame;
