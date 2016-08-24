@@ -29,4 +29,23 @@ describe('VideoFrame', () => {
 
   });
 
+  describe('#pad', () => {
+
+    let videoFrame;
+     beforeEach(() => {
+       // Create a new VideoFrame object before every test.
+       videoFrame = new VideoFrame();
+     });
+
+     it('should return the number as a string when > 10', () => {
+       VideoFrame.pad(10).should.equal('10');
+       VideoFrame.pad(11).should.equal('11');
+     });
+
+     it('should return the padded number as a string when < 10', () => {
+       VideoFrame.pad(8).should.equal('08');
+     });
+
+  });
+
 });
