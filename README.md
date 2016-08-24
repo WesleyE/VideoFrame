@@ -3,7 +3,7 @@
 
 # VideoFrame
 > HTML5 Video - SMPTE Time Code capturing and Frame Seeking API - Version: 0.3
-<br><br><br>
+<br><br><br><br>
 
 ## Contributors
 * Allen Sarkisyan - Lead engineer
